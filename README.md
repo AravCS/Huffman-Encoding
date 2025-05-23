@@ -1,4 +1,4 @@
-# Huffman-Encoding
+# Huffman Encoding Project 
 <h1> How to Use The Program </h1>
 This program has two main options, either compressing or decompressing a file. To utilize compression, enter one, for decompression, enter two. See below for more information. 
 <h2> Compressing & Decompressing a File </h2>
