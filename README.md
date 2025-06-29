@@ -1,74 +1,87 @@
-<h1> How to Use The Program </h1>
-This program has two main options, either compressing or decompressing a file. To utilize compression, enter one, for decompression, enter two. See below for more information. 
-<h2> Compressing & Decompressing a File </h2>
-Compressing a File: Specify the input file path, as well as the path that you would like to save the compressed, output file. 
+📦 Huffman Compression & Decompression Program
+This program offers two main features: compressing and decompressing files using the Huffman encoding algorithm. It supports lossless data compression and ensures the decompressed file is identical to the original.
 
-Decompressing a File: Specify the input file path (compressed file), as well as the output path to save the decompressed file. 
+🚀 How to Use the Program
+🗂️ Main Options:
 
-<h1> How the Program is Implemented: </h1>
+Enter 1 to compress a file
 
-This compression & decompression program is implemented through the utilization of the Huffman encoding algorithm, which provides lossless data compression.
+Enter 2 to decompress a file
 
-<h2> Steps for Compression </h2>
+📥 Compression:
 
-1) Built a frequency table by reading the input file character by character, and utilized an unordered_map to store key : value pairs, where the key represents the character and the value represents its frequency in the file. A sentinel character was ended at the end of the frequency table, which is useful during decompression phase to get the file to be exactly the same. 
-2) Built the Huffman tree through the utilization of a min-heap priority queue, in which I first created nodes with their character and frequency by reading the frequency table. Then, I iterated over the priority queue until it had a length of 1 by linking a parent to the two nodes at the front of the queue with their added frequencies in order to build the root of the Huffman tree.
-3) I proceeded to perform an in-order traversal of the Huffman tree to record the encoding of a letter (leaf node) into an unordered_map with the key as the letter and the value as its encoding.
-4) After creating the encoding table, I built my header by iterating over the encoding table and concatenating the character and its encoding along with delimiters to a string. A sentinel character is added at the end of the header, which is useful when rebuilding the Huffman tree. 
-5) After creating the encoding table and building my header, I was ready to build my compressed file by rereading the characters in the input file once again and inserting its encoding into a storage object.
+Input the path of the file you wish to compress
 
-<h2> Methods for Compression Phase </h2>
+Provide an output path to save the compressed file
 
-<ul> 
-  <li> void compress(std::string &in_file, std::string &out_file) </li>
-  <li> void BuildTable(std::ifstream &inputFile, std::unordered_map<char, int> &frequencyTable) </li>
-  <li> void generateCodes(Node *tree, std::unordered_map<char, std::string> &codes, string encoding) </li>
-  <li> std::string buildHeader(std::unordered_map<char, std::string> &codes) </li>
-  <li> void buildCompressedFile(std::unordered_map<char, std::string> &codes, std::string &out_file, std::string in_file, std::ifstream &inputFile) </li>
-</ul>
+📤 Decompression:
 
-<h2> Steps for Decompression </h2>
+Input the path of the compressed file
 
-<ol> 
-  <li> Decompression begins by rebuilding the Huffman tree by utilizing the header. </li>
-  <li> After rebuilding the Huffman tree through the use of the header, we can then write to an output file by extracting from our storage object 8 bits at a time, and     using a traversal pointer for our tree to reach the leaf nodes and write its character. A sentinel character is included to indicate the end (added during compression    phase), so we can have the file be exactly the same as the original. </li>
-</ol>
+Provide an output path for the decompressed file
 
-<h2> Methods for Decompression Phase </h2>
+⚙️ How the Program Works
+This program is implemented using the Huffman Encoding Algorithm, known for its efficiency in lossless compression.
 
-<ul> 
-  <li> void decompress(std::string& in_file, string &out_file) </li>
-  <li> Node *RebuildTree(std::ifstream &inputFile) </li>
-  <li> void buildDecompressedFile(Node *root, std::string &in_file, std::string &out_file, std::ifstream &inputFile) </li>
-</ul>
+🛠️ Compression Steps
+📊 Build a frequency table using an unordered_map<char, int> by reading characters from the input file.
 
-<h1> Results of the Program </h1>
-<h2> Results of Compression </h2>
+🌲 Construct a Huffman Tree using a min-heap priority queue based on character frequency.
 
-<b> File 1: Adventures_of_Sherlock_Holmes.txt </b> 
-<ul> 
-  <li> Original File Size: 6.3 MB </li>
-  <li> Compressed File Size: 3.6 MB </li>
-  <li> Percentage: ((6.3 - 3.6)/6.3) * 100 = <b> 42.86% </b> </li>
-</ul>
+🔡 Generate binary codes for each character via an in-order traversal of the Huffman Tree.
 
-<b> File 2: MOBY-DICK.txt </b> 
-<ul> 
-  <li> Original File Size: 1.3 MB </li>
-  <li> Compressed File Size: 720 KB </li>
-  <li> Percentage: ((1300 - 720)/1300)) * 100 = <b> 44.62% </b> </li>
-</ul>
+🧾 Build a header string containing character-encoding pairs with a sentinel character at the end.
 
-<b> File 3: 100west.txt </b> 
-<ul> 
-  <li> Original File Size: 20 KB </li>
-  <li> Compressed File Size: 12 KB </li>
-  <li> Percentage: ((20 - 12)/20)) * 100 = <b> 40% </b> </li>
-</ul>
+📄 Re-read the input file and use the codes to generate a compressed bitstream and write it to the output file.
 
-<b> File 4: sample-2mb-text-file.txt </b> 
-<ul> 
-  <li> Original File Size: 2.2 MB </li>
-  <li> Compressed File Size: 1.1 MB </li>
-  <li> Percentage: ((2.2 - 1.1)/2.2)) * 100 = <b> 50% </b> </li>
-</ul>
+🧪 Compression Methods
+cpp
+Copy
+Edit
+void compress(std::string &in_file, std::string &out_file);
+void BuildTable(std::ifstream &inputFile, std::unordered_map<char, int> &frequencyTable);
+void generateCodes(Node *tree, std::unordered_map<char, std::string> &codes, std::string encoding);
+std::string buildHeader(std::unordered_map<char, std::string> &codes);
+void buildCompressedFile(std::unordered_map<char, std::string> &codes, std::string &out_file, std::string in_file, std::ifstream &inputFile);
+🧩 Decompression Steps
+🌲 Rebuild the Huffman Tree using the header from the compressed file.
+
+📜 Decode the file by traversing the tree 8 bits at a time until reaching a sentinel character, ensuring the result matches the original file.
+
+🔧 Decompression Methods
+cpp
+Copy
+Edit
+void decompress(std::string &in_file, std::string &out_file);
+Node* RebuildTree(std::ifstream &inputFile);
+void buildDecompressedFile(Node *root, std::string &in_file, std::string &out_file, std::ifstream &inputFile);
+📈 Compression Results
+📘 File 1: Adventures_of_Sherlock_Holmes.txt
+Original Size: 6.3 MB
+
+Compressed Size: 3.6 MB
+
+Compression Rate: 42.86%
+
+🐳 File 2: MOBY-DICK.txt
+Original Size: 1.3 MB
+
+Compressed Size: 720 KB
+
+Compression Rate: 44.62%
+
+🏙️ File 3: 100west.txt
+Original Size: 20 KB
+
+Compressed Size: 12 KB
+
+Compression Rate: 40%
+
+📄 File 4: sample-2mb-text-file.txt
+Original Size: 2.2 MB
+
+Compressed Size: 1.1 MB
+
+Compression Rate: 50%
+
+
