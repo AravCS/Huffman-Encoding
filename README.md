@@ -2,8 +2,6 @@
 
 A C++ program that compresses and decompresses text files using the **Huffman encoding algorithm** for efficient, lossless data compression.
 
-> **Note:** This project was completed for my Data Structures & Algorithms course (Spring 2025) and received a perfect score of 100%.
-
 ## 📚 Table of Contents
 
 - [🔧 How to Use](#-how-to-use)
